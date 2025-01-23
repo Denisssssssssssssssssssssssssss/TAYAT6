@@ -14,7 +14,7 @@ private:
 	void Function();						// Функция
 	void Type();							// Тип
 	void List();							// Список
-	void Variable(int typeData);						// Переменная
+	void Variable();						// Переменная
 	void Assignment();						// Присваивание
 	void Expression();						// Выражение
 	void CompositeOperator();				// Составной оператор
