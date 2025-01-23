@@ -1,0 +1,11 @@
+int main ()
+{
+	int c = 10;
+	double d = 10 - 4 + 7 * 2 / 1 % 6;
+	double d2 = 6.79e10;
+	int i;
+	for(i = 0; i < 7; i = i + 1) {
+		c = c + 4;
+	}
+	return 0;
+}
