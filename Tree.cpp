@@ -215,7 +215,7 @@ void Tree::Print(int level) {
 		if (node->id == "")
 			std::cout << "Óçåë: ";
 		else
-			std::cout << "Óçåë: " << node->id;
+			std::cout << "Óçåë: " << node->id << " (Òèï äàííûõ: " << node->dataType << ") ";
 	}
 	else
 	{

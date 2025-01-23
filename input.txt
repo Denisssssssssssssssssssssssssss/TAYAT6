@@ -1,3 +1,16 @@
+//комментарий
+class Lab4 {
+int y;
+};
+class Lab6 {
+	int a = 0;
+	int b = 0;
+	int Hello() {
+		a = 9;
+		double p;
+		b = - 9;
+	}
+};
 int main ()
 {
 	int c = 10;

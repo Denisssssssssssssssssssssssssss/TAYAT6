@@ -46,6 +46,7 @@ void Diagramm::Tclass()
 	Node* newNode = new Node();
 	newNode->id = lex;
 	newNode->objectType = OBJ_CLASS;
+	newNode->dataType = typeData;
 	if (classNode != NULL) newNode->pointer = classNode;
 	tree->SetLeft(newNode);
 	tree = tree->GetLeft();
@@ -138,12 +139,14 @@ void Diagramm::List()
 {
 	TypeLex lex;
 	int type, pointer;
-	Variable();
+	int typeData = LookForward(1);
+	//Scan(lex);
+	Variable(typeData);
 	type = LookForward(1);
 	while (type == typeComma)
 	{
 		type = Scan(lex);
-		Variable();
+		Variable(typeData);
 		type = LookForward(1);
 	}
 }
@@ -241,27 +244,38 @@ void Diagramm::Type()
 	}
 }
 
-void Diagramm::Variable()
+void Diagramm::Variable(int typeData)
 {
 	TypeLex lex;
 	Node* newNode = new Node();
 	int type = LookForward(1);// вериабл под вопросом
 
+	/*if (typeData != typeInt && typeData != typeDouble)
+	{
+		scanner->PrintError("ожидался тип (int, short, long, float), ", lex);
+	}*/
+	if (typeData == constInt)
+		newNode->dataType = TYPE_INTEGER;
+	else if (typeData == constDouble)
+		newNode->dataType = TYPE_DOUBLE;
+	else
+		newNode->dataType = TYPE_UNKNOWN;
+
 	if (type == typeInt || type == typeDouble)
 	{
 		Scan(lex);
 		newNode->objectType = OBJ_VAR;
+		newNode->dataType = tree->GetDataType(type);
 	}
-	else
+	/*else
 		if (type == typeID) {
 			Scan(lex);
 			newNode->pointer = tree->FindUp(lex);
 			newNode->objectType = OBJ_CLASS_OBJ;
-		}
+		}*/
 
 	type = LookForward(1);
 	Tree* varNode = NULL;
-	type_data typeData = tree->GetDataType(type);
 
 	if (type != typeID)
 	{
@@ -281,6 +295,7 @@ void Diagramm::Variable()
 	newNode->id = lex;  // Устанавливаем идентификатор
 
 	newNode->dataType = tree->GetDataType(type);
+
 	type = LookForward(1);
 	if (type == typeEval) {
 		newNode->flagInit = 1;
@@ -332,18 +347,8 @@ void Diagramm::Assignment()
 	if (type != typeEval)
 	{
 		scanner->PrintError("ожидалось =, ", lex);
-	}
-
-	/*if (LookForward(1) == typeNew) {
-		type = Scan(lex);
-		function_call();
-	}
-	else {
-		if (look_forward(2) == typePoint) {
-			member_access();
-		}
-		expression();
-	}*/
+	}	
+		Expression();
 }
 
 void Diagramm::Expression()
@@ -409,7 +414,7 @@ void Diagramm::OperatorsAndDescriptions()
 			return;
 		}
 		type = LookForward(1);
-
+		
 	}
 }
 
@@ -756,6 +761,10 @@ void Diagramm::ElementaryExpression()
 {
 	TypeLex lex;
 	int type = LookForward(1);
+	if ( type == constInt || type == constDouble) {
+		type = Scan(lex);
+		return;
+	}
 	if (type == typeID)
 	{
 		type = Scan(lex); 
@@ -790,6 +799,7 @@ void Diagramm::ElementaryExpression()
 
 		return;
 	}
+
 	type = Scan(lex);
 	scanner->PrintError("ожидалось выражение, ", lex);
 }
