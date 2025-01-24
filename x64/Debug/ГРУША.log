@@ -2,7 +2,7 @@
 C:\Users\anisi\source\repos\ГРУША\Scanner.h(6,10): warning C4067: непредвиденные лексемы за директивой препроцессора, требуется newline
 C:\Users\anisi\source\repos\ГРУША\Diagramm.cpp(81,10): warning C4101: lex: неиспользованная локальная переменная
 C:\Users\anisi\source\repos\ГРУША\Diagramm.cpp(140,12): warning C4101: pointer: неиспользованная локальная переменная
-C:\Users\anisi\source\repos\ГРУША\Diagramm.cpp(399,10): warning C4101: lex: неиспользованная локальная переменная
+C:\Users\anisi\source\repos\ГРУША\Diagramm.cpp(389,10): warning C4101: lex: неиспользованная локальная переменная
   ГРУША.vcxproj -> C:\Users\anisi\source\repos\ГРУША\x64\Debug\ГРУША.exe
   "pwsh.exe" не является внутренней или внешней
   командой, исполняемой программой или пакетным файлом.

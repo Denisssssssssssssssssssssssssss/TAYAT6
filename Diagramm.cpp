@@ -258,10 +258,9 @@ void Diagramm::Variable()
 			newNode->pointer = tree->FindUp(lex);
 			newNode->objectType = OBJ_CLASS_OBJ;
 		}
-
+	type_data typeData = tree->GetDataType(type);
 	type = LookForward(1);
 	Tree* varNode = NULL;
-	type_data typeData = tree->GetDataType(type);
 
 	if (type != typeID)
 	{
@@ -280,7 +279,7 @@ void Diagramm::Variable()
 
 	newNode->id = lex;  // Устанавливаем идентификатор
 
-	newNode->dataType = tree->GetDataType(type);
+	//newNode->dataType = tree->GetDataType(type);
 	type = LookForward(1);
 	if (type == typeEval) {
 		newNode->flagInit = 1;
@@ -333,17 +332,8 @@ void Diagramm::Assignment()
 	{
 		scanner->PrintError("ожидалось =, ", lex);
 	}
-
-	/*if (LookForward(1) == typeNew) {
-		type = Scan(lex);
-		function_call();
-	}
-	else {
-		if (look_forward(2) == typePoint) {
-			member_access();
-		}
-		expression();
-	}*/
+	Expression();
+	
 }
 
 void Diagramm::Expression()
@@ -777,6 +767,7 @@ void Diagramm::ElementaryExpression()
 			MemberAccess();
 			return;
 		}
+	
 
 		if (LookForward(1) == typeLeftBracket) {
 			FunctionCall();
@@ -788,6 +779,11 @@ void Diagramm::ElementaryExpression()
 		}
 
 
+		return;
+	}
+	if (type == constDouble || type == constInt)
+	{
+		type = Scan(lex);
 		return;
 	}
 	type = Scan(lex);
